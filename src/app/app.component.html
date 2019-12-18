@@ -13,6 +13,52 @@
            Upon submitting the form, you should simply print the Value of the Form to the Console.
            Optionally, display it in your template.
       -->
+
+      <h3>Sign-up</h3>
+      <hr>
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div id="new-user-group" ngModelGroup="userData" #userData="ngModelGroup">
+
+          <div class="form-group">
+            <label for="useremail">Email address</label>
+            <input type="text" id="useremail" class="form-control" placeholder="Enter email *" name="useremail" ngModel
+              required email #email="ngModel">
+            <span class="help-block warning" *ngIf="!email.valid && email.touched">Please enter a valid email
+              address.</span>
+
+            <label for="secret">Subscription Type</label>
+            <select id="subType" class="form-control" [ngModel]="subType" name="subType">
+              <option value="basic">Basic</option>
+              <option value="advanced">Advanced</option>
+              <option value="pro">Pro</option>
+            </select>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Enter password *" name="password"
+              ngModel required password #password="ngModel">
+            <span class="help-block warning" *ngIf="!password.valid && password.touched">Please enter a valid
+              password.</span>
+
+            <br>
+            <div *ngIf="!form.valid && form.touched">
+              <p class="warning">Please complete all required fields.</p>
+            </div>
+            <button class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+          </div>
+
+        </div>
+      </form>
+      <hr>
+      <div class="row" *ngIf="submitted">
+        <div class="col-xs-12">
+          <h3>Submitted Details</h3>
+          <p>Email: {{submittedData.email}}</p>
+          <p class="text-capitalize">Subscription type: {{submittedData.subType}}</p>
+          <p>Password: {{submittedData.password}}</p>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </div>
